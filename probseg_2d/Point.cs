@@ -15,6 +15,16 @@ namespace probseg_2d
             Y = y;
         }
 
-
+        public bool Equals(Point point)
+        {
+            if (X == point.X && Y == point.Y)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

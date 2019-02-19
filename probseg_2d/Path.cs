@@ -9,6 +9,30 @@ namespace probseg_2d
     {
         List<Segment> ListaDeSegmente = new List<Segment>();
 
+
+        public List<(Segment s1, Segment s2)> TupluSegmente(Path path)
+        {
+            List<(Segment s3, Segment s4)> listaTemporara = new List<(Segment s3, Segment s4)>();
+
+            foreach (Segment s in ListaDeSegmente)
+            {
+                foreach (Segment s2 in path.GetSegments())
+                {
+                    if (s.FindIntersection(s2))
+                    {
+                        (Segment s, Segment s2) tuplu = (s, s2);
+                        listaTemporara.Add(tuplu);
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+            }
+            return listaTemporara;
+        }
+
+
         public Openclose GetCircuit()
         {
             var primulSegment = ListaDeSegmente.First();
@@ -33,9 +57,9 @@ namespace probseg_2d
             {
                 return Openclose.Deschis;
             }
-
-
         }
+
+
 
         public void AddSegments(List<Segment> listaDeSegmente)
         {
@@ -78,6 +102,26 @@ namespace probseg_2d
             }
         }
 
+        public List<Segment> GetSegments() => ListaDeSegmente;
+
+        public bool FindPathIntersection(Path path)
+        {
+            foreach (Segment s in ListaDeSegmente)
+            {
+                foreach (Segment s2 in path.GetSegments())
+                {
+                    if (s.FindIntersection(s2))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+            }
+            return false;
+        }
 
     }
 }
